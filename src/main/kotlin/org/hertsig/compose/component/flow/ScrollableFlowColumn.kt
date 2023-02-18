@@ -30,7 +30,7 @@ fun ScrollableFlowColumn(
                 val maxColumnWidth = availableContentWidth / columns
                 val columnWidthConstraint = Constraints(maxWidth = maxColumnWidth)
                 val placeables = measurables.map { it.measure(columnWidthConstraint) }
-                val columnWidth = placeables.maxOf { it.width }
+                val columnWidth = placeables.maxOfOrNull { it.width } ?: 0
                 require(columnWidth <= maxColumnWidth) { "Doesn't fit: $columnWidth > $maxColumnWidth" }
                 val finalLayout = strategy.layout(columns, itemSpacingPx, placeables)
                 require(finalLayout.size == columns)
