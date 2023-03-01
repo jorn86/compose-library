@@ -5,7 +5,6 @@ import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.runtime.Composable
@@ -18,12 +17,12 @@ fun ScrollableColumn(
     modifier: Modifier = Modifier,
     arrangement: Arrangement.Vertical = Arrangement.Top,
     padding: PaddingValues = PaddingValues(8.dp, 8.dp, 12.dp, 8.dp),
-    vertical: LazyListState = rememberLazyListState(),
+    state: LazyListState = rememberLazyListState(),
     content: LazyListScope.() -> Unit
 ) {
     Box {
-        LazyColumn(modifier, vertical, padding, verticalArrangement = arrangement, content = content)
-        VerticalScrollbar(rememberScrollbarAdapter(vertical), Modifier.align(Alignment.CenterEnd).padding(2.dp))
+        LazyColumn(modifier, state, padding, verticalArrangement = arrangement, content = content)
+        VerticalScrollbar(rememberScrollbarAdapter(state), Modifier.align(Alignment.CenterEnd))
     }
 }
 
@@ -32,11 +31,11 @@ fun ScrollableRow(
     modifier: Modifier = Modifier,
     arrangement: Arrangement.Horizontal = Arrangement.Start,
     padding: PaddingValues = PaddingValues(0.dp),
-    vertical: LazyListState = rememberLazyListState(),
+    state: LazyListState = rememberLazyListState(),
     content: LazyListScope.() -> Unit
 ) {
     Box {
-        LazyRow(modifier, vertical, padding, horizontalArrangement = arrangement, content = content)
-        HorizontalScrollbar(rememberScrollbarAdapter(vertical), Modifier.align(Alignment.BottomCenter))
+        LazyRow(modifier, state, padding, horizontalArrangement = arrangement, content = content)
+        HorizontalScrollbar(rememberScrollbarAdapter(state), Modifier.align(Alignment.BottomCenter))
     }
 }

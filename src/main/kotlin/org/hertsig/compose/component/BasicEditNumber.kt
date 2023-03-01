@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerKeyboardModifiers
@@ -35,6 +36,7 @@ fun BasicEditNumber(
     step: Int = 1,
     width: Dp = 20.dp,
     suffix: String? = null,
+    showButtons: Boolean = true,
     onUpdate: (Int) -> Unit = {},
 ) {
     var value by state
@@ -63,8 +65,11 @@ fun BasicEditNumber(
             innerTextField()
             if (suffix != null) TextLine(suffix, style = TextStyle.Default, align = TextAlign.End)
         }
-        IconButton(minus, Icons.Default.Remove, enabled = value > min, iconSize = 12.dp, description = "Decrease")
-        IconButton(plus, Icons.Default.Add, enabled = value < max, iconSize = 12.dp, description = "Increase")
+        if (showButtons) {
+            val noFocus = Modifier.focusProperties { canFocus = false }
+            IconButton(minus, Icons.Default.Remove, noFocus, value > min, 12.dp, "Decrease")
+            IconButton(plus, Icons.Default.Add, noFocus, value < max, 12.dp, "Increase")
+        }
     }
 }
 

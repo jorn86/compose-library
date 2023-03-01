@@ -21,7 +21,8 @@ fun TextLine(
     align: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
 ) {
-    Text(text, modifier, color, textAlign = align, overflow = overflow, softWrap = false, maxLines = 1, style = style)
+    Text(text, modifier,
+        color, textAlign = align, overflow = overflow, softWrap = false, maxLines = 1, style = style)
 }
 
 @Composable
@@ -33,12 +34,26 @@ fun TextLine(
     align: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
 ) {
-    Text(text, modifier, color, textAlign = align, overflow = overflow, softWrap = false, maxLines = 1, style = style)
+    Text(text, modifier,
+        color, textAlign = align, overflow = overflow, softWrap = false, maxLines = 1, style = style)
 }
 
 @Composable
 fun RowScope.RowTextLine(
     text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    style: TextStyle = LocalTextStyle.current,
+    align: TextAlign? = null,
+    overflow: TextOverflow = TextOverflow.Clip,
+) {
+    Text(text, modifier.align(Alignment.CenterVertically),
+        color, textAlign = align, overflow = overflow, softWrap = false, maxLines = 1, style = style)
+}
+
+@Composable
+fun RowScope.RowTextLine(
+    text: AnnotatedString,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
     style: TextStyle = LocalTextStyle.current,

@@ -28,7 +28,7 @@ open class VerticalThenHorizontalStrategy: FlowLayoutStrategy {
         currentColumnHeight > averageColumnHeight
 }
 
-class HorizontalThenVerticalStrategy : FlowLayoutStrategy {
+object HorizontalThenVerticalStrategy : FlowLayoutStrategy {
     override fun layout(columns: Int, spacing: Int, placeables: List<Placeable>): List<List<Placeable>> {
         val layout = List(columns) { mutableListOf<Placeable>() }
         placeables.forEachIndexed { index, it ->
@@ -38,7 +38,7 @@ class HorizontalThenVerticalStrategy : FlowLayoutStrategy {
     }
 }
 
-class ReorderStrategy: FlowLayoutStrategy {
+object ReorderStrategy: FlowLayoutStrategy {
     override fun layout(columns: Int, spacing: Int, placeables: List<Placeable>): List<List<Placeable>> {
         val layout = MutableList(columns) { mutableListOf<Placeable>() }
         placeables.sortedByDescending { it.height }.forEach { placeable ->

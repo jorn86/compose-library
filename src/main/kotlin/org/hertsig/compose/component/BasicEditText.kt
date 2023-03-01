@@ -14,14 +14,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BasicEditText(textState: MutableState<String>, modifier: Modifier = Modifier, hint: String? = null, onUpdate: (String) -> Unit = {}) {
+fun BasicEditText(
+    textState: MutableState<String>,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    maxLines: Int = 1,
+    onUpdate: (String) -> Unit = {},
+) {
     var text by textState
     BasicTextField(
         text,
         { text = it; onUpdate(it) },
         modifier.border(1.dp, Color.Black).padding(2.dp),
-        singleLine = true,
-        maxLines = 1
+        singleLine = maxLines <= 1,
+        maxLines = maxLines,
     ) { innerTextField ->
         if (hint != null && text.isEmpty()) {
             TextLine(hint, Modifier.alpha(.5f), style = TextStyle.Default)
