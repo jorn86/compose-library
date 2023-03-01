@@ -20,7 +20,7 @@ fun ScrollableFlowColumn(
     state: LazyListState = rememberLazyListState(),
     content: @Composable () -> Unit
 ) {
-    ScrollableColumn(modifier, vertical = state) {
+    ScrollableColumn(modifier, state = state) {
         item {
             Layout(content) { measurables, outerConstraints ->
                 val columnSpacingPx = columnSpacing.roundToPx()
