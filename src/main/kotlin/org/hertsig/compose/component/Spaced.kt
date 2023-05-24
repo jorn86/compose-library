@@ -13,7 +13,7 @@ fun SpacedRow(
     spacing: Dp = 4.dp,
     horizontal: Alignment.Horizontal = Alignment.Start,
     vertical: Alignment.Vertical = Alignment.Top,
-    content: @Composable() (RowScope.() -> Unit),
+    content: @Composable (RowScope.() -> Unit),
 ) {
     Row(modifier, Arrangement.spacedBy(spacing, horizontal), vertical, content)
 }
