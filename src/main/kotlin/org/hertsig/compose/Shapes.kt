@@ -31,8 +31,8 @@ fun polygon(sides: Int, rotation: Float = 0f, scale: Float = 1f): Shape = Scaled
     val angle = 2.0 * Math.PI / sides
     val r = rotation * (Math.PI / 180)
     moveTo(
-        .5f + (.5f * cos(0.0 + r).toFloat()),
-        .5f + (.5f * sin(0.0 + r).toFloat())
+        .5f + (.5f * cos(r).toFloat()),
+        .5f + (.5f * sin(r).toFloat())
     )
     for (i in 1 until sides) {
         lineTo(

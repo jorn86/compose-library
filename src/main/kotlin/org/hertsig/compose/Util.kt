@@ -8,7 +8,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import com.google.common.base.CaseFormat
 
-val Enum<*>.display: String get() = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name.replace("_", " "))
+val Enum<*>.display: String get() = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name.replace('_', ' '))
 
 @Composable
 fun Modifier.autoFocus(requester: FocusRequester = remember { FocusRequester() }): Modifier {
