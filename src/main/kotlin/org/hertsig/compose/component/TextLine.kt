@@ -44,11 +44,12 @@ fun RowScope.RowTextLine(
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
     style: TextStyle = LocalTextStyle.current,
-    align: TextAlign? = null,
+    labelAlign: Alignment.Vertical = Alignment.CenterVertically,
+    textAlign: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
 ) {
-    Text(text, modifier.align(Alignment.CenterVertically),
-        color, textAlign = align, overflow = overflow, softWrap = false, maxLines = 1, style = style)
+    Text(text, modifier.align(labelAlign),
+        color, textAlign = textAlign, overflow = overflow, softWrap = false, maxLines = 1, style = style)
 }
 
 @Composable

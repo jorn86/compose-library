@@ -22,12 +22,24 @@ fun <V> DropdownMenu(
     onUpdate: (V) -> Unit
 ) {
     var show by showState
-    CursorDropdownMenu(show, { show = false }) {
+    DropdownMenu(show, values, { show = false }, display, itemAlign, onUpdate)
+}
+
+@Composable
+fun <V> DropdownMenu(
+    visible: Boolean,
+    values: Collection<V>,
+    onDismiss: () -> Unit = {},
+    display: (V) -> String = { it.toString() },
+    itemAlign: TextAlign = TextAlign.Start,
+    onUpdate: (V) -> Unit
+) {
+    CursorDropdownMenu(visible, onDismiss) {
         values.forEach { Item(display(it), itemAlign) { onUpdate(it) } }
     }
 }
 
 @Composable
-private fun Item(text: String, align: TextAlign = TextAlign.Start, onClick: () -> Unit) {
+internal fun Item(text: String, align: TextAlign = TextAlign.Start, onClick: () -> Unit) {
     TextLine(text, Modifier.padding(2.dp).defaultMinSize(40.dp).fillMaxWidth().clickable { onClick() }, align = align)
 }

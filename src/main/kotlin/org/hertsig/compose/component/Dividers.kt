@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 const val dividerAlpha = .12f
 
 @Composable
-private fun defaultColor() = MaterialTheme.colors.onSurface.copy(alpha = dividerAlpha)
+fun defaultColor(alpha: Float = dividerAlpha) = MaterialTheme.colors.onSurface.copy(alpha = alpha)
 
 @Composable
 fun HorizontalDivider(color: Color = defaultColor(), thickness: Dp = 1.dp) {
