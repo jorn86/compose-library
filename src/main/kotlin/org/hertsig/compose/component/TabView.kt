@@ -1,7 +1,10 @@
 package org.hertsig.compose.component
 
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.*
+import androidx.compose.material.LocalContentColor
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -16,9 +19,16 @@ data class TabBuilder(
 
 @Composable
 fun TabView(
+    vararg views: TabBuilder,
     rowHeight: Dp = 32.dp,
     indexState: MutableState<Int> = remember { mutableStateOf(0) },
-    vararg views: TabBuilder,
+) = TabView(views.asList(), rowHeight, indexState)
+
+@Composable
+fun TabView(
+    views: List<TabBuilder>,
+    rowHeight: Dp = 40.dp,
+    indexState: MutableState<Int> = remember { mutableStateOf(0) },
 ) {
     var currentIndex by indexState
     CompositionLocalProvider(
