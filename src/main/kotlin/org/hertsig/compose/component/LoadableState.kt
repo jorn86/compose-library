@@ -21,33 +21,34 @@ fun <T: Any> Loader(
 
 @Composable
 fun <T: Any> rememberLoadableState(loader: suspend () -> T): LoadableState<T> {
-    val loadable = remember(loader) { LoadableState(
-        mutableStateOf(true),
-        mutableStateOf(null),
-        loader
-    ) }
+    // Don't depend `remember` on `loader`, that may cause unintended new (unloaded) instances
+    val loadable = remember {
+        LoadableState(mutableStateOf(true), mutableStateOf(null), loader)
+    }
     LaunchedEffect(Unit) { loadable.reload() }
     return loadable
 }
 
 open class LoadableState<T: Any>
 internal constructor(
-    private val loadingState: MutableState<Boolean> = mutableStateOf(true),
-    private val state: MutableState<T?> = mutableStateOf(null),
+    loadingState: MutableState<Boolean> = mutableStateOf(true),
+    state: MutableState<T?> = mutableStateOf(null),
     private val load: suspend () -> T
 ) {
-    val loading by loadingState
-    val nullableValue by state
-    open val value: T get() = state.value ?: throw IllegalStateException("Value is loading")
+    var loading by loadingState; private set
+    var nullableValue by state; private set
+    open val value: T get() = nullableValue ?: throw IllegalStateException("Value is loading")
 
     suspend fun reload(clearState: Boolean = false) {
-        loadingState.value = true
-        if (clearState) state.value = null
+        loading = true
+        if (clearState) nullableValue = null
         backgroundReload()
     }
 
     suspend fun backgroundReload() {
-        withContext(Dispatchers.IO) { state.value = load() }
-        loadingState.value = false
+        withContext(Dispatchers.IO) { nullableValue = load() }
+        loading = false
     }
+
+    override fun toString() = "LoadableState[loading=$loading, value=$nullableValue]"
 }
