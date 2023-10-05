@@ -1,6 +1,6 @@
 package org.hertsig.compose
 
-import org.hertsig.core.logger
+import org.hertsig.logger.logger
 
 private val log = logger {}
 
